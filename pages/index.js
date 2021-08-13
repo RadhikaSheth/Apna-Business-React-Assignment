@@ -1,18 +1,19 @@
 import styles from '../styles/Home.module.css'
-import { useState, useEffect } from 'react'
 import Search from '../components/Search';
+import axios from 'axios';
 
 export default function Home() {
-  const [searchQuery,setQuery] = useState('');
 
   const handleSearch = (e) => {
-    setQuery(e.target.value)
+    axios.get(`${process.env.NEXT_PUBLIC_ALGOLIA}/api/v1/search?query=${e.target.value}`)
+    .then((response)=>{
+      console.log(response)
+    })
   }
 
   return (
     <>
       <Search handleChange={handleSearch} />
-      {searchQuery}
     </>
   )
 }
