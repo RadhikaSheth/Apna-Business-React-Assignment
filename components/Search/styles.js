@@ -1,6 +1,11 @@
 import { experimentalStyled as styled } from '@material-ui/core/styles';
-import { TextField} from '@material-ui/core';
-export const StyledSearch = styled(TextField)(() => ({
-    width : '70vw',
-    marginTop:'10vh'
+import {Grid} from '@material-ui/core';
+
+export const SearchGrid = styled(Grid)(() => ({
+    backgroundColor: '#72A0C1',
+    color: 'white',
+    padding: 20
+}));
+export const BrowserGrid = styled(Grid)(() => ({
+    paddingRight: 20
 }));
