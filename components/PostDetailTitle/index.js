@@ -11,7 +11,7 @@ export default function PostDetailTitle(props) {
                     <Grid item>
                         <StyledTypography>
                             <Grid container pb={1}>
-                                &nbsp;(<Link href={props.url}><StyledURL>{props.url}</StyledURL></Link>)
+                               <Link href={props.url}><StyledURL> &nbsp;({props.url})</StyledURL></Link>
                             </Grid>
                         </StyledTypography>
                     </Grid>
