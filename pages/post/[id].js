@@ -1,6 +1,7 @@
 import axios from 'axios';
 import PostDetailTitle from '../../components/PostDetailTitle';
 import Header from '../../components/Header';
+import PostDetailComments from '../../components/PostDetailComments';
 export async function getServerSideProps(context) {
     const { id } = context.query;
     try {
@@ -27,6 +28,7 @@ export default function Post({ post }) {
                 title={post.title}
                 url={post.url}
             />
+            <PostDetailComments children={post.children}/>
         </>
     )
 }

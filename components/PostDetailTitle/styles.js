@@ -6,8 +6,13 @@ export const StyledURL = styled(Typography)(() => ({
 }));
 export const StyledGrid = styled(Grid)(() => ({
     width:'80vw',
-    padding:20
+    paddingTop:20,
+    paddingBottom:20
 }));
 export const GreyGrid = styled(List)(() => ({
     color: '#808080'
+}));
+export const StyledTypography = styled(Typography)(() => ({
+    color: '	#808080',
+    fontSize: '12px',
 }));
