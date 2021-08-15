@@ -17,7 +17,8 @@ export default function Home() {
   const handleSearch = (e) => {
     setQuery(e.target.value);
   }
-  const getNews = () => {
+
+  useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_ALGOLIA}/api/v1/${searchBy}?query=${query}&tags=${tag}&page=${page}`)
       .then((response) => {
         console.log(response)
@@ -25,10 +26,6 @@ export default function Home() {
         setMaxPage(response.data.nbPages)
         window.scrollTo(0, 0)
       })
-  }
-
-  useEffect(() => {
-    getNews();
   }, [page, tag, query, searchBy])
 
 

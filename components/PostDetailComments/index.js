@@ -4,7 +4,7 @@ import ChildComment from './childComment'
 export default function PostDetailComments(props) {
     return (
         <Grid container justifyContent="center">
-            {props.children.map((child) => {
+            {props.childrenArray.map((child) => {
                 return (
                     <>
                         {child.text ?

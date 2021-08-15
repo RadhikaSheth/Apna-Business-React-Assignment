@@ -29,7 +29,7 @@ export default function Post({ post }) {
                 title={post.title}
                 url={post.url}
             />
-            <PostDetailComments children={post.children}/>
+            <PostDetailComments childrenArray={post.children}/>
         </Grid>
     )
 }
