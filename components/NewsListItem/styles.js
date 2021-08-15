@@ -15,7 +15,8 @@ export const StyledTypography = styled(Typography)(() => ({
     color: '	#808080'
 }));
 export const StyledTitle = styled(Typography)(() => ({
-    fontSize: '20px'
+    fontSize: '20px',
+    color: 'black'
 }));
 export const StyledAuthorIcon = styled(PersonIcon)(() => ({
     fontSize: '14px',

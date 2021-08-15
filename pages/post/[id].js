@@ -1,0 +1,34 @@
+import axios from 'axios';
+import PostDetailTitle from '../../components/PostDetailTitle';
+import Header from '../../components/Header';
+export async function getServerSideProps(context) {
+    const { id } = context.query;
+    try {
+        var response = await axios.get(`${process.env.NEXT_PUBLIC_ALGOLIA}/api/v1/items/${id}`)
+        return {
+            props: {
+                post: response.data,
+            }
+
+        };
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export default function Post({ post }) {
+    return (
+        <>
+            <Header />
+            <PostDetailTitle
+                points={post.points}
+                author={post.author}
+                date={(post.created_at).substr(0, 4)}
+                title={post.title}
+                url={post.url}
+            />
+        </>
+    )
+}
+
+
