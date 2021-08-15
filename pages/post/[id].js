@@ -2,6 +2,7 @@ import axios from 'axios';
 import PostDetailTitle from '../../components/PostDetailTitle';
 import Header from '../../components/Header';
 import PostDetailComments from '../../components/PostDetailComments';
+import {Grid} from '@material-ui/core'
 export async function getServerSideProps(context) {
     const { id } = context.query;
     try {
@@ -19,7 +20,7 @@ export async function getServerSideProps(context) {
 
 export default function Post({ post }) {
     return (
-        <>
+        <Grid container direction="column">
             <Header />
             <PostDetailTitle
                 points={post.points}
@@ -29,7 +30,7 @@ export default function Post({ post }) {
                 url={post.url}
             />
             <PostDetailComments children={post.children}/>
-        </>
+        </Grid>
     )
 }
 

@@ -1,11 +1,10 @@
 import { Box } from '@material-ui/core'
 import { StyledTypography } from './styles'
-import Interweave from 'interweave';
 export default function ChildComment(props) {
     return (
-        <Box pl={props.indentationLevel >= 5 ? 5 : props.indentationLevel * 3}>
-            <StyledTypography>{props.author} on {props.date.substr(5, 2)}-{props.date.substr(0, 4)}</StyledTypography>
-            <Interweave content={props.text} />
+        <Box pl={props.indentationLevel >= 4 ? 4 : props.indentationLevel * 1}>
+            <StyledTypography >{props.author} on {props.date.substr(5, 2)}-{props.date.substr(0, 4)}</StyledTypography>
+            <div style={{ overflow: "auto" }} dangerouslySetInnerHTML={{ __html: props.text }} />
             {props.comment.map((child) => {
                 return (
                     <>
