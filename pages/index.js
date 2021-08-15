@@ -7,38 +7,44 @@ import FilterSearch from '../components/FilterSearch';
 import Pagination from '../components/Pagination';
 import { Grid } from '@material-ui/core'
 import { Link } from '@material-ui/core';
+import Loader from "react-loader";
 export default function Home() {
   const [newsList, setList] = useState([]);
-  const [tag, setTag] = useState('story');
   const [query, setQuery] = useState('');
   const [searchBy, setSearchBy] = useState('search')
   const [page, setPage] = useState(0);
   const [maxPage, setMaxPage] = useState(0);
+  const [loading, setloading] = useState(false);
   const handleSearch = (e) => {
     setQuery(e.target.value);
   }
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_ALGOLIA}/api/v1/${searchBy}?query=${query}&tags=${tag}&page=${page}`)
+    axios.get(`${process.env.NEXT_PUBLIC_ALGOLIA}/api/v1/${searchBy}?query=${query}&page=${page}`)
       .then((response) => {
         console.log(response)
         setList(response.data.hits)
         setMaxPage(response.data.nbPages)
-        window.scrollTo(0, 0)
+        setloading(false)
       })
-  }, [page, tag, query, searchBy])
+  }, [page, query, searchBy])
 
+  useEffect(()=>{
+    setPage(0)
+  },[query])
 
-  const handleTags = (e) => {
-    setTag(e.target.value)
-  }
+  useEffect(() => {
+    setloading(true);
+  }, [page, query, searchBy])
 
   const prevPage = () => {
     setPage(page - 1)
+    window.scrollTo(0, 0)
   }
 
   const nextPage = () => {
     setPage(page + 1)
+    window.scrollTo(0, 0)
   }
 
   const handleSearchBy = (e) => {
@@ -47,29 +53,37 @@ export default function Home() {
   return (
     <>
       <Search handleChange={handleSearch} />
-      <Grid container justifyContent="center" pt={1} pb={1}>
-        <FilterSearch searchBy={searchBy} tag={tag} handleTags={handleTags} handleSearchBy={handleSearchBy} />
-      </Grid>
-      {newsList.map((item) => {
-        return (
-          item.title ?
-            <Link href={`/post/${item.objectID}`} style={{ textDecoration: 'none' }}>
-              <NewsListItem
-                Title={item.title}
-                Link={item.url}
-                Author={item.author}
-                Points={item.points}
-                Date={item.created_at}
-                Comments={item.num_comments}
-              />
-            </Link>
+      {loading ?
+        <Loader />
+        :
+        <>
+          <Grid container justifyContent="center" pt={1} pb={1}>
+            <FilterSearch searchBy={searchBy} handleSearchBy={handleSearchBy} />
+          </Grid>
+          {
+            newsList.map((item) => {
+              return (
+                item.title ?
+                  <Link href={`/post/${item.objectID}`} style={{ textDecoration: 'none' }}>
+                    <NewsListItem
+                      Title={item.title}
+                      Link={item.url}
+                      Author={item.author}
+                      Points={item.points}
+                      Date={item.created_at}
+                      Comments={item.num_comments}
+                    />
+                  </Link>
 
-            : <></>
-        )
-      })}
-      <Grid container justifyContent="center" pt={5} pb={5}>
-        <Pagination currentPage={page} maxPage={maxPage} prevPage={prevPage} nextPage={nextPage} />
-      </Grid>
+                  : <></>
+              )
+            })
+          }
+          <Grid container justifyContent="center" pt={5} pb={5}>
+            <Pagination currentPage={page} maxPage={maxPage} prevPage={prevPage} nextPage={nextPage} />
+          </Grid>
+        </>
+      }
     </>
   )
 }

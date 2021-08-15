@@ -5,18 +5,7 @@ export default function FilterSearch(props) {
         <Grid container justifyContent="center">
             <StyledHorizontalList>
                 <ListItem>
-                    <Typography>Search</Typography>
-                </ListItem>
-                <ListItem>
-                    <StyledSelect value={props.tag} onChange={props.handleTags} color="info">
-                        <MenuItem value="story">Story</MenuItem>
-                        <MenuItem value="comments">Comments</MenuItem>
-                    </StyledSelect>
-                </ListItem>
-            </StyledHorizontalList>
-            <StyledHorizontalList>
-                <ListItem>
-                    <Typography>by</Typography>
+                    <Typography> Sort by</Typography>
                 </ListItem>
                 <ListItem>
                     <StyledSelect value={props.searchBy} onChange={props.handleSearchBy} color="info">

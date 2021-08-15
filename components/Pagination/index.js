@@ -11,7 +11,7 @@ export default function Pagination(props) {
                 }
             </ListItem>
             <ListItem>
-                <Typography>{props.currentPage} / {props.maxPage}</Typography>
+                <Typography>{props.currentPage+1} / {props.maxPage+1}</Typography>
             </ListItem>
             <ListItem>
                 {props.currentPage == props.maxPage ?
