@@ -10,7 +10,8 @@ export const StyledGrid = styled(Grid)(() => ({
 }));
 export const StyledTypography = styled(Typography)(() => ({
     fontSize: '12px',
-    color: '#808080'
+    color: '#808080',
+    overflow:"auto"
 }));
 export const DarkDivider = styled(Divider)(() => ({
     color:'black'
