@@ -20,7 +20,7 @@ npm start
 ```
 yarn install
 yarn dev
-yarn build
+yarn run build
 yarn start
 ```
 
