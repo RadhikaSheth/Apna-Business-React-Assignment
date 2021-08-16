@@ -32,22 +32,22 @@ export default function Home() {
   }
 
   const api = useCallback(
-    debounce((page,query,searchBy)=> {
+    debounce((page, query, searchBy) => {
       axios.get(`${process.env.NEXT_PUBLIC_ALGOLIA}/api/v1/${searchBy}?query=${query}&page=${page}`)
-      .then((response) => {
-        console.log(response)
-        setList(response.data.hits)
-        setMaxPage(response.data.nbPages)
-        setloading(false)
-      })
+        .then((response) => {
+          console.log(response)
+          setList(response.data.hits)
+          setMaxPage(response.data.nbPages)
+          setloading(false)
+        })
     }, 200),
     []
   );
 
   useEffect(() => {
-    api(page,query,searchBy)
+    api(page, query, searchBy)
   }, [page, query, searchBy])
-  
+
   const handleSearch = (e) => {
     setQuery(e.target.value);
   }
@@ -73,9 +73,16 @@ export default function Home() {
   const handleSearchBy = (e) => {
     setSearchBy(e.target.value)
   }
+
+  const keyPress = (e) => {
+    if (e.keyCode == 13) {
+      api(page, query, searchBy)
+      e.preventDefault();
+    }
+  }
   return (
     <>
-      <Search handleChange={handleSearch} />
+      <Search handleChange={handleSearch} keyPress={keyPress} />
       {loading ?
         <Loader />
         :
@@ -86,19 +93,16 @@ export default function Home() {
           {
             newsList.map((item) => {
               return (
-                item.title ?
-                  <Link href={`/post/${item.objectID}`} style={{ textDecoration: 'none' }}>
-                    <NewsListItem
-                      Title={item.title}
-                      Link={item.url}
-                      Author={item.author}
-                      Points={item.points}
-                      Date={item.created_at}
-                      Comments={item.num_comments}
-                    />
-                  </Link>
-
-                  : <></>
+                (item.title || item.story_title) &&
+                <Link href={`/post/${item.objectID}`} style={{ textDecoration: 'none' }}>
+                  <NewsListItem
+                    Title={item.title ? item.title : item.story_title}
+                    Author={item.author}
+                    Points={item.points ? item.points : 0}
+                    Date={item.created_at}
+                    Comments={item.num_comments ? item.num_comments : 0}
+                  />
+                </Link>
               )
             })
           }

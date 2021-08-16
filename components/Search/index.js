@@ -27,11 +27,12 @@ export default function Search(props) {
                         sx={{ ml: 1, flex: 1 }}
                         placeholder="Enter search query"
                         onChange={props.handleChange}
+                        onKeyDown={props.keyPress}
                     />
                     <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                    <IconButton sx={{ p: '10px' }} aria-label="search" >
+                    <Grid sx={{ p: '10px' }} aria-label="search" >
                         <SearchIcon />
-                    </IconButton>
+                    </Grid>
                 </Paper>
             </Grid>
         </SearchGrid>
