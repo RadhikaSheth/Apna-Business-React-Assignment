@@ -1,7 +1,7 @@
 import styles from '../styles/Home.module.css'
 import Search from '../components/Search';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import NewsListItem from '../components/NewsListItem';
 import FilterSearch from '../components/FilterSearch';
 import Pagination from '../components/Pagination';
@@ -15,23 +15,46 @@ export default function Home() {
   const [page, setPage] = useState(0);
   const [maxPage, setMaxPage] = useState(0);
   const [loading, setloading] = useState(false);
-  const handleSearch = (e) => {
-    setQuery(e.target.value);
+
+  function debounce(func, wait, immediate) {
+    var timeout;
+    return (...args) => {
+      var context = this;
+      var later = () => {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
   }
 
-  useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_ALGOLIA}/api/v1/${searchBy}?query=${query}&page=${page}`)
+  const api = useCallback(
+    debounce((page,query,searchBy)=> {
+      axios.get(`${process.env.NEXT_PUBLIC_ALGOLIA}/api/v1/${searchBy}?query=${query}&page=${page}`)
       .then((response) => {
         console.log(response)
         setList(response.data.hits)
         setMaxPage(response.data.nbPages)
         setloading(false)
       })
-  }, [page, query, searchBy])
+    }, 200),
+    []
+  );
 
-  useEffect(()=>{
+  useEffect(() => {
+    api(page,query,searchBy)
+  }, [page, query, searchBy])
+  
+  const handleSearch = (e) => {
+    setQuery(e.target.value);
+  }
+
+  useEffect(() => {
     setPage(0)
-  },[query])
+  }, [query])
 
   useEffect(() => {
     setloading(true);
