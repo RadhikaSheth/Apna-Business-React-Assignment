@@ -25,7 +25,7 @@ export default function Post({ post }) {
             <PostDetailTitle
                 points={post.points}
                 author={post.author}
-                date={(post.created_at).substr(0, 4)}
+                date={(post.created_at)}
                 title={post.title}
                 url={post.url}
             />

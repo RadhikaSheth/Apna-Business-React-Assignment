@@ -1,4 +1,4 @@
-import { Grid, Typography, Link } from '@material-ui/core'
+import { Grid, Typography, Link, Tooltip } from '@material-ui/core'
 import { StyledURL, StyledGrid, GreyGrid, StyledTypography } from './styles'
 export default function PostDetailTitle(props) {
     return (
@@ -11,13 +11,16 @@ export default function PostDetailTitle(props) {
                     <Grid item>
                         <StyledTypography>
                             <Grid container pb={1}>
-                               <Link href={props.url}><StyledURL> &nbsp;({props.url})</StyledURL></Link>
+                                <Link href={props.url}><StyledURL> &nbsp;({props.url})</StyledURL></Link>
                             </Grid>
                         </StyledTypography>
                     </Grid>
                 </Grid>
                 <GreyGrid container pt={1}>
-                    {props.points} points created by {props.author} in {props.date}
+                    {props.points} points created by {props.author} in
+                    <Tooltip title={props.date} placement="right">
+                        <span> {props.date.substr(5, 2)}-{props.date.substr(0, 4)}</span>
+                    </Tooltip>
                 </GreyGrid>
             </StyledGrid>
         </Grid>
