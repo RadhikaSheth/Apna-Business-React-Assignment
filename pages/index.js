@@ -93,7 +93,7 @@ export default function Home() {
           {
             newsList.map((item) => {
               return (
-                <Link href={`/post/${item.objectID}`} style={{ textDecoration: 'none' }}>
+                <Link key={item.objectID} href={`/post/${item.objectID}`} style={{ textDecoration: 'none' }}>
                   <NewsListItem
                     Title={item.title ? item.title : item.story_title}
                     Author={item.author}
