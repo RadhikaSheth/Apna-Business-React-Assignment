@@ -1,10 +1,10 @@
 import styles from '../styles/Home.module.css'
-import Search from '../components/Search';
+import Search from '../components/Search/search';
 import axios from 'axios';
 import { useEffect, useState, useCallback } from 'react';
-import NewsListItem from '../components/NewsListItem';
-import FilterSearch from '../components/FilterSearch';
-import Pagination from '../components/Pagination';
+import NewsListItem from '../components/NewsListItem/newsListItem';
+import SortSearch from '../components/SortSearch/sortSearch';
+import Pagination from '../components/Pagination/pagination';
 import { Grid } from '@material-ui/core'
 import { Link } from '@material-ui/core';
 import Loader from "react-loader";
@@ -88,7 +88,7 @@ export default function Home() {
         :
         <>
           <Grid container justifyContent="center" pt={1} pb={1}>
-            <FilterSearch searchBy={searchBy} handleSearchBy={handleSearchBy} />
+            <SortSearch searchBy={searchBy} handleSearchBy={handleSearchBy} />
           </Grid>
           {
             newsList.map((item) => {

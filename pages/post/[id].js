@@ -1,7 +1,7 @@
 import axios from 'axios';
-import PostDetailTitle from '../../components/PostDetailTitle';
-import Header from '../../components/Header';
-import PostDetailComments from '../../components/PostDetailComments';
+import PostDetailTitle from '../../components/PostDetailTitle/postDetailTitle';
+import Header from '../../components/Header/header';
+import PostDetailComments from '../../components/PostDetailComments/postDetailComments';
 import {Grid} from '@material-ui/core'
 export async function getServerSideProps(context) {
     const { id } = context.query;
